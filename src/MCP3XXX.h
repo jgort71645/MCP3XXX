@@ -204,6 +204,14 @@ private:
           data[1] = (differential ? 0b00000000 : 0b10000000) | (channel << 4);
           // It doesn't matter what data[2] is set to.
         }
+         else if (NUM_BITS == 12)
+        {
+          // The first byte contains the start bit, single/differential bit, and D2; the rest is to align our output data.
+          data[0] = 0b00000100 | (differential ? 0b00000000 : 0b00000010) | (channel >> 2);
+          // The second byte contains the D1 and D0 bits, padded over.
+          data[1] = channel << 6;
+          // It doesn't matter what data[2] is set to.
+        }
         else
         {
           return ADC_UNSUPPORTED_CONFIGURATION;
@@ -299,7 +307,7 @@ typedef MCP3XXX_<10, 8, 1350000> MCP3008;
 // /// Max clock frequency for 2.7V: 1000000 Hz
 // /// Max clock frequency for 5.0V: 2000000 Hz
 // /// \sa http://ww1.microchip.com/downloads/en/DeviceDoc/21298c.pdf
-// typedef MCP3XXX_<12, 4, 1000000> MCP3204;
+typedef MCP3XXX_<12, 4, 1000000> MCP3204;
 //
 // /// \brief A typedef for the MCP3208.
 // /// Max clock frequency for 2.7V: 1000000 Hz
