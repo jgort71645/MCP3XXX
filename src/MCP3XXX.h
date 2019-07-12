@@ -123,7 +123,7 @@ public:
     ///
     /// \param channel The channel (channel < NUM_CHANNELS) to read.
     /// \returns values [0, MAX_VALUE) on success or an error code on failure.
-    uint32_t analogRead(uint8_t channel) const
+    uint16_t analogRead(uint8_t channel) const
     {
         if (channel < NUM_CHANNELS)
           return _read(channel, false);
@@ -141,7 +141,7 @@ public:
     /// \param inPositiveChannel The channel that should be input positive.
     /// \returns Differential values. See the data sheet for information on how
     ///          to interpret these return values.
-    uint32_t analogReadDifferential(uint8_t inPositiveChannel) const
+    uint16_t analogReadDifferential(uint8_t inPositiveChannel) const
     {
         if (inPositiveChannel < NUM_CHANNELS)
           return _read(inPositiveChannel, true);
@@ -167,7 +167,7 @@ private:
     /// \brief Read the value from the given channel using the given mode.
     /// \param channel The channel to read.
     /// \param differential If true, use differential read mode.
-    uint32_t _read(uint8_t channel, bool differential) const
+    uint16_t _read(uint8_t channel, bool differential) const
     {
       // Data transfers are done using "8-bit segments" approach in data sheet.
       // The sent data alignment resuls in correctly aligned return bytes after
